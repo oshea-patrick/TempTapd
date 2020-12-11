@@ -1,0 +1,50 @@
+<div *ngIf="!displayDetails">
+    <app-banner-image> </app-banner-image>
+</div>
+
+<div *ngIf="!displayDetails" class="section-4" style="font-family: Arial,sans-serif; color:#333;font-size: 14px;line-height: 20px;">
+    <div class="w-container">
+       <div class="w-row">
+          <div class="w-col w-col-9">
+             <div class="text-block-4">We might not always be able to go to our favorite breweries, but we can still drink their beer and now, listen to their uniquely curated Spotify playlists, together, with other craft beer fans around the country.<br><br>Login to your Spotify Premium account and "tune in" to your favorite brewery...or discover a new one.</div>
+          </div>
+          <div *ngIf="!connected" (click)="connect()" data-w-id="7d945d4e-26b1-91e5-72a5-da7fa117e741" class="button-2 w-button" style="font-family: Arial,sans-serif;">SPOTIFY PREMIUM</div>
+       </div>
+    </div>
+ </div>
+
+ <div class="section-6"></div>
+
+<div
+    style="display: flex; flex-direction: column; background-color: #fff; align-items: center; margin-top: 20px"
+>
+
+ <!--Displays list of breweries-->
+    <div
+        style="display: flex; flex-direction: column; background-color: #fff; align-items: center; margin-top: 20px"
+    >
+
+    <div *ngIf="connected && listenerService.listener && listenerService.listener.favoriteBreweries.length">
+    <h2 style="text-align: center;"> Favorites: </h2>
+
+        <div style="margin-bottom: 40px; background-color : #fff;">
+            <app-fav-breweries [currentBrewery]="currentBrewery" [displayDetails]="displayDetails" (emitter)="breweryUpdate($event);"> </app-fav-breweries>
+        </div>
+    </div>
+
+    <div  *ngIf="connected && listenerService.listener && listenerService.listener.ownedBreweries.length">
+        <h2 style="text-align: center;"> Owned: </h2>
+
+        <div style="margin-bottom: 40px; background-color : #fff;">
+            <app-owned-breweries [currentBrewery]="currentBrewery" [displayDetails]="displayDetails" (emitter)="breweryUpdate($event);"> </app-owned-breweries>
+        </div>
+    </div>
+        <div *ngIf="breweryService" style="background-color : #fff;">
+            <app-breweries [currentBrewery]="currentBrewery" [displayDetails]="displayDetails" (emitter)="breweryUpdate($event);"> </app-breweries>
+        </div>
+    </div>
+</div>
+<div style="width:100%;" class="section-8"></div>
+
+
+<router-outlet></router-outlet>

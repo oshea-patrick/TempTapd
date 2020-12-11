@@ -1,0 +1,40 @@
+<div *ngIf="breweryService && listenerService && messageService && messages">
+    <img *ngIf="!chatOpen && hasNotifications" class="open-button" src="../../assets/ding.png" style="width:50px" (click)="openForm()" />
+    <img *ngIf="!chatOpen && !hasNotifications" class="open-button" src="../../assets/chat.png" style="width:50px" (click)="openForm()" />
+    <img *ngIf="chatOpen" class="open-button" src="../../assets/chatclose.png" style="width:50px" (click)="closeForm()" />
+
+    <div *ngIf="display" class="chat-popup" id="myForm">
+        <form class="form-container">
+            <div style="background-color: #091e33; margin-left: -13px; margin-right: -13px; margin-top: -13px;">
+                <h2 style="color: #FFFFFF; font-family: Arial, Helvetica, sans-serif; padding-left: 10px; font-size: 13px;"> {{breweryService.currentBrewery.name}} Chat </h2>
+            </div>
+
+            <div class="chat" style = "height:400px; overflow: scroll; overflow-x: hidden; margin-left: -10px; margin-top: -15px;" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+                <div *ngFor="let p of messages">
+                    <div *ngIf="isOwnText(p)" style="width:100%;" class="mine messages">
+                      <div class="message last">
+                        {{p}}
+                       </div>
+                    </div>
+
+
+                    <div *ngIf="!isOwnText(p)" style="width:100%;" class="yours messages">
+                        <div class="message last">
+                          {{p}}
+                         </div>
+                      </div>
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: row; width: 100%;">
+                <div style="width:400px; margin-left: -10px; margin-bottom: -10px;">
+                    <input (keyup.enter)="sendMessage()" style="width:100%; outline: none; height: 100%; border-top-style: hidden;
+                    border-right-style: hidden;
+                    border-left-style: hidden;
+                    border-bottom-style: hidden;" [(ngModel)]="str" type="text"  maxlength="256" name="name" data-name="Name" placeholder="Type a message..." id="name" ngDefaultControl>
+                </div>
+                <img (click)="sendMessage()" style="width:20px; cursor: pointer; padding-top: 5px;" src="../../assets/send.png" />
+            </div>
+        </form>
+    </div>
+</div>

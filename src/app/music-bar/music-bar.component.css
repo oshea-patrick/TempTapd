@@ -1,0 +1,23 @@
+
+    input[type='range'] {
+      overflow: hidden;
+      width: 100%;
+      -webkit-appearance: none;
+      background-color: #add8e6;
+    }
+    
+    input[type='range']::-webkit-slider-runnable-track {
+      height: 10px;
+      width: 100%;
+      -webkit-appearance: none;
+      color: #add8e6;
+      margin-top: -1px;
+    }
+    
+    input[type='range']::-webkit-slider-thumb {
+      width: 10px;
+      height: 10px;
+      cursor: pointer;
+      background: #33a3c9;
+      box-shadow: none;
+    }

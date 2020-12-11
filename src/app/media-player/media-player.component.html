@@ -1,0 +1,81 @@
+
+<div *ngIf="this.breweryService && this.breweryService.currentBrewery"
+	style="position: fixed; bottom: 0%; height: 60px; background-color: #091e33; display: flex; flex-direction: row; flex:1; width: 100%"
+	>
+	<div style="padding-left:90px;">
+		<img style="height: 50px; margin-top: 5px; margin-bottom: 5px; margin-right: 10px;" src={{this.spotifyService.currentSongItem.track.album.images[0].url}} />
+    </div>
+    
+
+    <div style="color: white; display: flex; flex-direction: column; justify-content:center;">
+
+        <div style="display: flex; flex-direction: row; margin-top: 20px; padding-top: 10px; margin-top: -5px;">
+            <b style="white-space: nowrap;">{{this.spotifyService.currentSongItem.track.name}} </b>
+            <div *ngIf = "this.listenerService.inSongs(this.spotifyService.currentSongItem.track.id)"
+            (click)="unlikeSong()"
+            style="margin-left : 20px; cursor: pointer;"
+            >
+                <img style="height: 20px;" src="../../assets/redlike.png" />
+            </div>
+            <div *ngIf = "!this.listenerService.inSongs(this.spotifyService.currentSongItem.track.id)"
+            (click)="likeSong()"
+            style="margin-left : 20px; cursor: pointer;"
+            >
+                <img style="height: 20px;" src="../../assets/like.png" />
+            </div>
+        </div>
+
+        <div>
+            <p style="margin-top: -5px; white-space: nowrap;"> {{this.spotifyService.currentSongItem.track.artists[0].name}}</p>
+        </div>
+
+    </div>
+    
+<div style="display: flex; flex-direction: row; justify-content: center; margin-left: 30%;">
+
+    <div *ngIf="!this.streamService.currentStream.streaming || this.listenerService.inOwned(this.streamService.currentStream.name)"
+            (click)="prev()"
+            style="margin-top: 15px; cursor: pointer; margin-right: 20px;"
+            >
+            <img style="height: 30px; transform: rotate(180deg);" src="../../assets/skip.png"/>
+        </div>
+
+	<div *ngIf="!this.spotifyService.playing && (!this.streamService.currentStream.streaming)"
+	(click)="resume()"
+	style="margin-left : 30px; margin-top: 10px; cursor: pointer; margin-right: 20px;"
+    >
+        <img style="height: 40px;" src="../../assets/play.png" />
+    </div>
+
+        <div *ngIf="this.spotifyService.playing && (!this.streamService.currentStream.streaming)"
+        (click)="pause()"
+        style="margin-left : 30px; margin-top: 10px; cursor: pointer; margin-right: 20px;"
+        >
+        <img style="height: 40px;" src="../../assets/pause.png" />
+        </div>
+
+        <div
+            *ngIf="!this.streamService.currentStream.streaming || this.listenerService.inOwned(this.streamService.currentStream.name)"
+            (click)="next()"
+            style="margin-left : 30px; margin-top: 15px; cursor: pointer; margin-right: 10px;"
+            >
+            <img style="height: 30px;" src="../../assets/skip.png" />
+        </div>
+        <div *ngIf="this.streamService.currentStream.streaming && !this.listenerService.inOwned(this.streamService.currentStream.name)">
+            <h1 style="padding-top: 10px;white-space: nowrap; font-family: Arial, Helvetica, sans-serif; color: #FFFFFF;">{{this.breweryService.currentBrewery.name}} Live</h1>
+        </div>
+</div>
+
+<div style="width: 500px; margin-top: 25px; margin-left: 20%;">
+    <div style="display: flex; flex-direction: row; justify-content: center;">
+        <img style="margin-top: -3px; height: 20px; margin-right: 10px;" src="../../assets/mute.png" />
+    <input (input)="volumeChange()" style="-webkit-appearance: none; background-color: #4a545f; color: #FFFFFF; height: 5px;" type="range" min="1" max="100" value="50" id="myRange" [(ngModel)]="volume" ngDefaultControl>
+    <img style="margin-top: -3px; height: 20px; margin-left: 10px;" src="../../assets/sound.png" />
+    </div>
+</div>
+
+<div style="color: #FFFFFF;" *ngIf="spotifyService && spotifyService.currentSongItem && spotifyService.playbackPosition && spotifyService.songEnd">
+    <p>{{ms_to_time(spotifyService.playbackPosition)}}/{{ms_to_time(spotifyService.songEnd)}} </p>
+</div>
+
+</div>

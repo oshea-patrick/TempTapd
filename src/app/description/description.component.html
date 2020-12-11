@@ -1,0 +1,49 @@
+<div style="display: flex; flex-direction: column; align-content: center;">
+   <div *ngIf="currentBrewery" class="div-block-4">
+      <div class="w-container">
+         <div style="display: flex; flex-direction: row;" class="columns w-row">
+            <div class="column-6 w-col w-col-4">
+               <h4 class="heading-4"> {{currentBrewery.name}} </h4>
+               <img style="cursor: pointer;" (click)="openWebsite()" src="{{currentBrewery.url}}" width="252" sizes="(max-width: 479px) 92vw, (max-width: 767px) 252px, (max-width: 991px) 229.3333282470703px, 252px" alt="" class="image-13">
+               <div style="display: flex; flex-direction: column; margin-top: 10px;">
+                  <div style="margin-bottom: 16px; font-family: Montserrat, sans-serif; font-size: 22px; font-weight: bold">
+                     <div style="display: flex; flex-direction: row; justify-content: center;">
+                        <img (click)="goFacebook()" src="https://uploads-ssl.webflow.com/5ea3292ea75e34531c42be58/5eefff6f60d29e82815d70ec_FB-icon.png" style="height: 32px; width: 32px; margin-right: 20px; cursor: pointer;">
+                        <img (click)="goInstagram()" src="https://uploads-ssl.webflow.com/5ea3292ea75e34531c42be58/5eefff9575d5b73aa7c812e0_IG-icon.png" style="height: 32px; width: 32px; margin-right: 20px; cursor: pointer;">
+                        <img (click)="unlikeBrewery()" *ngIf="listenerService && this.listenerService.foundListener && listenerService.listener && listenerService.inFavorites(currentBrewery.name)" src="../assets/redlike.png" style="height: 32px; width: 32px; margin-right: 20px; cursor: pointer;">
+                        <img (click)="likeBrewery()" *ngIf="listenerService && this.listenerService.foundListener && listenerService.listener && !listenerService.inFavorites(currentBrewery.name)" src="../assets/graylike.png" style="height: 32px; width: 32px; cursor: pointer;">
+                     </div>
+                     <div *ngIf="this.breweryService.currentBrewery.beer && this.breweryService.currentBrewery.name.length" style="display: flex; flex-direction: row; justify-content: center; padding-top: 3px;">
+                        <div (click)="goBeer()" class="button-2 w-button" style="font-family: Arial,sans-serif;height: 30px;">Buy Beer!</div>
+                     </div> 
+                     <div style="display: flex; flex-direction: row; justify-content: center; padding-top: 3px;">
+                        <div (click)="claimBrewery()" *ngIf="listenerService && this.listenerService.foundListener && !listenerService.inOwned(breweryService.currentBrewery.name) && claimService && !inClaims" class="button-2 w-button" style="font-family: Arial,sans-serif;height: 30px;"> Claim Brewery </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="column w-col w-col-8" style="height: 390px; overflow: scroll; overflow-x: hidden;" *ngIf="playlist && this.listenerService && this.listenerService.foundListener">
+               <div (click)="playSongWrapper(item.track.uri, item.track.duration_ms, 0)" style="cursor: pointer;" *ngFor="let item of playlist.items">
+               <h4 class="heading-5">{{ item.track.name }}</h4>
+               <p class="paragraph">{{ item.track.artists[0].name }}</p>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div *ngIf="listenerService && currentBrewery&& tempBrewery && tempBrewery.name && tempBrewery.name.length > 0 &&listenerService.inOwned(currentBrewery.name)" class="body-3">
+      <div class="form-block w-form">
+         <div class="form">
+            <label for="name" class="field-label-3">Brewery Name:</label><input [(ngModel)]="tempBrewery.name" type="text" class="text-field w-input" maxlength="256" placeholder="Brewery Name" ngDefaultControl disabled>
+            <label for="location" class="field-label-3">Brewery Address:</label><input [(ngModel)]="tempBrewery.location" type="text" class="text-field w-input" maxlength="256"  placeholder="Brewery Location"  ngDefaultControl>
+            <label for="url" class="field-label-3">Brewery Image URL:</label><input [(ngModel)]="tempBrewery.url" type="text" class="text-field w-input" maxlength="256" placeholder="Brewery URL"  ngDefaultControl>
+            <label for="playlist" class="field-label-3">Brewery Playlist:</label><input (input)="playListMatchedRegex=matches(tempBrewery.playlist)" [(ngModel)]="tempBrewery.playlist" type="text" class="text-field w-input" maxlength="256" placeholder="spotify:playlist:***************" id="name" ngDefaultControl>
+            <label for="facebook" class="field-label-3">Brewery Facebook:</label><input [(ngModel)]="tempBrewery.facebook" type="text" class="text-field w-input" maxlength="256" placeholder="Brewery Facebook" ngDefaultControl>
+            <label for="instagram" class="field-label-3">Brewery Instagram:</label><input [(ngModel)]="tempBrewery.instagram" type="text" class="text-field w-input" maxlength="256"  placeholder="Brewery Instagram" ngDefaultControl>
+            <label for="website" class="field-label-3">Brewery Website:</label><input [(ngModel)]="tempBrewery.website" type="text" class="text-field w-input" maxlength="256"  placeholder="Brewery Website" ngDefaultControl>
+            <label for="beer" class="field-label-3">Beer Page:</label><input [(ngModel)]="tempBrewery.beer" type="text" class="text-field w-input" maxlength="256"  placeholder="Beer Page" ngDefaultControl>
+            <input style="font-family: Arial,sans-serif;" *ngIf="playListMatchedRegex && tempBrewery.name.length > 0 && tempBrewery.url.length > 0 && tempBrewery.location.length > 0" (click)="updateBrewery()" type="submit" value="Submit" data-wait="Please wait..." class="submit-button w-button">
+         </div>
+      </div>
+   </div>
+</div>
+</div>

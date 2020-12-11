@@ -1,0 +1,6 @@
+<app-banner> </app-banner>
+<router-outlet></router-outlet>
+<div *ngIf="spotifyService && spotifyService.currentSongItem">
+    <app-music-bar style="z-index: 100; position: relative;"> </app-music-bar>
+    <app-media-player style="z-index: 100; position: relative;"></app-media-player>
+</div>

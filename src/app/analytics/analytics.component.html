@@ -1,0 +1,30 @@
+<div style="display: flex; flex-direction: column; justify-content: center;">
+    <div *ngIf = "analytic && analytic.redirects" style="display: flex; flex-direction: row; justify-content: center;">
+    <h1>{{analytic.name}} Analytics:  </h1> <img style="height:20px;width:20p; cursor:pointer; padding-top: 8px;" *ngIf = "!show" (click)="show=!show" src="../assets/plus.png"/><img style="height:30px;width:30px;cursor:pointer; padding-top: 8px;" *ngIf = "show" (click)="show=!show" src="../assets/minus.png"/>
+    </div>
+
+    <div style="display: flex; flex-direction: row; justify-content: center;">
+    <div *ngIf = "analytic && analytic.redirects && show" style="display: flex; flex-direction: column; justify-content: center;">
+    <div *ngFor="let session of analytic.sessions">
+        {{session}}
+    </div>
+    <h2> Likes: {{analytic.likes}} </h2>
+    <h2> Clicks Out: </h2>
+    <p> Facebook : {{analytic.redirects["facebook"]}}  </p>
+    <p> Instagram : {{analytic.redirects["instagram"]}}  </p>
+    <p> Website : {{analytic.redirects["website"]}}  </p>
+    <p> Beer : {{analytic.redirects["beer"]}}  </p>
+
+    <h2> Liked Songs: </h2>
+    <div *ngFor="let song of likedSongs">
+        <p>{{song}} </p>
+    </div>
+
+    <h2> Skipped Songs: </h2>
+    <div *ngFor="let song of skippedSongs">
+        <p>{{song}} </p>
+    </div>
+
+    </div>
+    </div>
+</div>

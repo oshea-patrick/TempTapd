@@ -1,0 +1,27 @@
+<div *ngIf="this.breweryService && this.breweryService.currentBrewery && breweryService.currentBrewery.name"> 
+    <div style="display: flex; flex-direction: column; justify-content: center; padding-bottom: 200px;">
+        <div>
+            <app-description [currentBrewery]="breweryService.currentBrewery"> </app-description>
+        </div>
+            <app-analytics *ngIf="analytic && this.listenerService.inOwned(this.breweryService.currentBrewery.name)" [analytic]="analytic"> </app-analytics>
+        <div style="display: flex; flex-direction: row; justify-content: center;">
+            <div *ngIf="this.listenerService && this.listenerService.foundListener && owned && !streaming">
+                <input style="font-family: Arial,sans-serif; cursor: pointer;" (click)="startStream()" type="submit" value="Start Stream" class="submit-button w-button">
+            </div>
+            <div *ngIf="this.listenerService && this.listenerService.foundListener && owned && streaming">
+                <input style="font-family: Arial,sans-serif; cursor: pointer;" (click)="stopStream()" type="submit" value="Stop Stream" class="submit-button w-button">
+            </div>
+        </div>
+        <div *ngIf="this.listenerService && !this.listenerService.foundListener" class="text-block-4" style="display: flex; flex-direction: row; justify-content: center;">
+            Want to see more content? Connect to Spotify below!
+        </div>
+        <div *ngIf="this.listenerService && !this.listenerService.foundListener" style="display: flex; flex-direction: row; justify-content: center;">
+            <div style= "width: 155px; font-family: Arial,sans-serif;" *ngIf="true" (click)="connect()" data-w-id="7d945d4e-26b1-91e5-72a5-da7fa117e741" class="button-2 w-button">
+                SPOTIFY PREMIUM
+            </div>
+        </div>
+    </div>
+    <div *ngIf="this.listenerService && this.listenerService.foundListener">
+        <app-chat> </app-chat>
+    </div>
+</div>

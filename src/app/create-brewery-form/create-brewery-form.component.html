@@ -1,0 +1,18 @@
+<app-banner-image> </app-banner-image>
+
+<div *ngIf="breweryService" class="body-3" syle="height : 1000px;">
+    <div class="form-block w-form" style="padding-bottom:400px;">
+        <form id="brew-form" name="brewery-form" data-name="Brewery Form" class="form">
+            <label for="name" class="field-label-3">Brewery Name:*</label><input (input)="breweryNameTaken(brewery.name)" [(ngModel)]="brewery.name" type="text" class="text-field w-input" maxlength="256" name="name" data-name="Name" placeholder="Brewery Name" id="name" ngDefaultControl>
+            <label for="location" class="field-label-3">Brewery Address:*</label><input [(ngModel)]="brewery.location" type="text" class="text-field w-input" maxlength="256" name="name" data-name="Name" placeholder="Brewery Location" id="name" ngDefaultControl>
+            <label for="url" class="field-label-3">Brewery Image URL:*</label><input [(ngModel)]="brewery.url" type="text" class="text-field w-input" maxlength="256" name="name" data-name="Name" placeholder="Brewery URL" id="name" ngDefaultControl>
+            <label for="playlist" class="field-label-3">Brewery Playlist:*</label><input (input)="playListMatchedRegex=matches(brewery.playlist)" [(ngModel)]="brewery.playlist" type="text" class="text-field w-input" maxlength="256" name="name" data-name="Name" placeholder="spotify:playlist:***************" id="name" ngDefaultControl>
+            <label for="facebook" class="field-label-3">Brewery Facebook:</label><input [(ngModel)]="brewery.facebook" type="text" class="text-field w-input" maxlength="256" name="name" data-name="Name" placeholder="Brewery Facebook" id="name" ngDefaultControl>
+            <label for="instagram" class="field-label-3">Brewery Instagram:</label><input [(ngModel)]="brewery.instagram" type="text" class="text-field w-input" maxlength="256" name="name" data-name="Name" placeholder="Brewery Instagram" id="name" ngDefaultControl>
+            <label for="website" class="field-label-3">Brewery Website:</label><input [(ngModel)]="brewery.website" type="text" class="text-field w-input" maxlength="256" name="name" data-name="Name" placeholder="Brewery Website" id="name" ngDefaultControl>
+            <label for="beer" class="field-label-3">Beer Page:</label><input [(ngModel)]="brewery.beer" type="text" class="text-field w-input" maxlength="256" name="name" data-name="Name" placeholder="Beer Page" id="name" ngDefaultControl>
+            <label> Fill out required fields in order to submit (*) </label>
+            <input style="font-family: Arial,sans-serif;" *ngIf="playListMatchedRegex && brewery.name.length > 0 && brewery.url.length > 0 && brewery.location.length > 0 && !breweryNameTakenVar" (click)="createBrewery(brewery)" type="submit" value="Submit" data-wait="Please wait..." class="submit-button w-button">
+        </form>
+    </div>
+ </div>

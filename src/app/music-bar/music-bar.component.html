@@ -1,0 +1,3 @@
+<div style="position: fixed; bottom: 55px; width: 100%;;" *ngIf="spotifyService && spotifyService.songEnd ">
+<input (input)="songChange()" style="-webkit-appearance: none; background-color: #4a545f; height: 5px; width:100%;" type="range" min="0" max="{{this.spotifyService.songEnd}}" value="this.spotifyService.playbackPosition" id="myRange" [(ngModel)]="this.spotifyService.playbackPosition" ngDefaultControl>
+</div>

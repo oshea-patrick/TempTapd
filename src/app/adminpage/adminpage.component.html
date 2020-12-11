@@ -1,0 +1,28 @@
+
+<app-banner-image> </app-banner-image>
+<div *ngIf = "claims" style="display: flex; flex-direction: row;">
+<h1> Requests ({{claims.length}}): </h1> <img style="height:20px;width:20p; cursor:pointer;padding-top: 8px;" *ngIf = "!showRequests" (click)="showRequests=!showRequests" src="../assets/plus.png"/><img style="height:30px;width:30px;cursor:pointer;padding-top: 8px;" *ngIf = "showRequests" (click)="showRequests=!showRequests" src="../assets/minus.png"/>
+</div>
+<div *ngIf="claims && claims.length && breweryService && all && all.length && showRequests">
+    <div *ngFor="let claim of claims">
+        <div *ngIf="claim.request === 'OWN'">
+        <p>{{claim.requesterSpotName}} ({{claim.requesterName}}) requests ownership of {{claim.breweryName}}</p>
+        <button (click)="approve(claim)"> Approve </button>
+        <button (click)="deny(claim)"> Deny </button>
+        </div>
+        <div *ngIf="claim.request === 'NEW'">
+            <p>{{claim.requesterSpotName}} ({{claim.requesterName}}) requests to create a new Brewery: </p>
+            <p> {{breweryService.toString(breweryService.getBrewery(all, claim.breweryName))}} </p>
+            <button (click)="approve(claim)"> Approve </button>
+            <button (click)="deny(claim)"> Deny </button>
+            </div>
+    </div>
+</div>
+<div *ngIf="analytics" style="display: flex; flex-direction: row;">
+<h1>Analytics ({{analytics.length}}): </h1> <img style="height:20px;width:20px; cursor:pointer;" *ngIf = "!showAnalytics" (click)="showAnalytics=!showAnalytics" src="../assets/plus.png"/><img style="height:30px;width:30px;cursor:pointer;" *ngIf = "showAnalytics" (click)="showAnalytics=!showAnalytics" src="../assets/minus.png"/>
+</div>
+<div style="padding-bottom: 100px;" *ngIf="analyticService && analytics && analytics.length && showAnalytics">
+    <div *ngFor="let a of analytics">
+        <app-analytics [analytic]="a"> </app-analytics>
+    </div>
+</div>

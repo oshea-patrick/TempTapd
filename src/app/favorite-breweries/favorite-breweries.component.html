@@ -1,0 +1,15 @@
+<div class="w-container">
+   <div class="columns-2 w-row" style="display: flex; flex-direction: row; justify-content: center; flex-wrap: wrap;">
+      <div *ngFor="let brewery of breweries" class="block w-col w-col-4" style="cursor:pointer; padding-left: 2px;padding-right: 2px;width: 252px;" (click)="emitter.emit(brewery)">
+         <div class="w-inline-block">
+            <div style="width: 220px; height: 220px;">
+                <img src="{{brewery.url}}"  style="object-fit: contain;" alt="" class="image-11">
+             </div>
+            <img *ngIf="this.streamService.getStreamFromList(brewery.name, streams).streaming" src="../../assets/dot.png" width="40" style="position: relative; z-index: 1; margin-top: -100px; margin-left: 150px;">
+            <img *ngIf="!this.streamService.getStreamFromList(brewery.name, streams).streaming" src="../../assets/redDot.png" width="40" style="position: relative; z-index: 1; margin-top: -100px; margin-left: 150px;">
+         </div>
+         <h5 class="heading-9"> {{brewery.name}} </h5>
+         <div class="text-block-8"> {{brewery.location}} </div>
+      </div>
+   </div>
+</div>
